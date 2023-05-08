@@ -1,0 +1,21 @@
+* {
+  font-family: arial;
+}
+
+body {
+}
+
+section {
+  margin: 1em;
+  padding: 1em;
+  border-bottom: 1px solid #eee;
+}
+
+img {
+  max-width: 300px;
+  max-height: 400px;
+}
+
+li {
+  list-style-type: none;
+}

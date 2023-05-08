@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css"></link>
+  <title>Holmenkoll-stafetten 2023</title>
+  <script src="./index.js" defer></script>
+  <script src="//unpkg.com/alpinejs" defer></script>
+</head>
+<body x-data="model">
+  <h1>Cisco Holmenkoll-stafetten 2023</h1>
+
+
+  <section>
+  <h2> Saturday 13th May</h2>
+  <ul>
+    <li>See <a href="https://holmenkollstafetten.no/">Official site</a> for more info.</li>
+    <li>See <a href="https://holmenkollstafetten.no/l%C3%B8ypekart" target="_blank">Track map</a></li>
+  </ul>
+
+  <div>
+    Cisco has a record 5 teams this year! That means 75 runners - and one heck of a party afterwards.
+  </div>
+  <div>
+    Organizing comittee:
+    <ul>
+      <li>Henrik Holstad</li>
+      <li>Andreas Aardal Hanssen</li>
+      <li>Hilde Kristine Bjerkan</li>
+      <li>Tore Bjølseth</li>
+    </ul>
+  </div>
+</section>
+
+  <section>
+    <h2>Program</h2>
+    <ul>
+      <li>📸 13:00-14:30 - Pre-race meet </li>
+      <li>🚶‍♀️ 14:30 - People moves to their stages</li>
+      <li>⭐️ 15:00 - 17:30 - Race on!</li>
+      <li>🏰 15:30 - Casa Henrik opens</li>
+      <li>🍔 17:30 - 20:00: Dinner</li>
+      <li>🍻 20:00 - Party</li>
+      <li>🥃 22:30 - Party moves on</li>
+    </ul>
+</section>
+
+<section>
+  <h2>Pre-race</h2>
+  <img src="./images/majorstua.jpeg" />
+  <ul>
+    <li>💚 Remember to bring your green Cisco shirt - so it's easy to spot you on exchange</li>
+    <li>💚 Meet at the stairs in fornt of the Majorstuen metro station, towards Kirkeveien</li>
+    <li>💚 Get your start number from the team lead (first runner)</li>
+    <li>💚 Say hi to the persons you will be exchanging with</li>
+    <li>💚 Take team photo</li>
+    <li>💚 Head over to your stage in good time before your expected start time</li>
+  </ul>
+</section>
+
+<section>
+  <h2>The teams</h2>
+
+  <div>The number of the team doesn't match the order in which the teams start - it's just the number given by the organizer.</div>
+
+  <template x-for="team in teams">
+    <section>
+      <h2 x-text="`${team.name} (${team.number})`"></h2>
+      <ul>
+        <li x-text="`Meet: ${team.meet}`"></li>
+        <li x-text="`Race start: ${team.time}`"></li>
+        <li x-text="`First runner: ${team.members[1]}`"></li>
+        <li><a :href="team.url" target="_blank">Full team</a></li>
+      </ul>
+    </section>
+  </template>
+
+</section>
+
+<section>
+  <h2>The race</h2>
+  <ul>
+    <li>Be sure to say meet the person you are exchanging with before the race</li>
+    <li>Up to you, but usually no point in deciding which side of the road to exchange on</li>
+    <li>We wear green shirts (photo)</li>
+    <li>If you dont find anyone at the exchange when you get there, run the next stage too</li>
+    <li>You can shower at Bislett stadium</li>
+    <li>Tracking:</li>
+  </ul>
+</section>
+
+<section>
+  <h2>The dinner</h2>
+  - Address: Lillevannsveien 6
+  - How to get there
+    Very close to Holmenkollen t-bane (map here)
+  - Showering
+</section>
+
+<section>
+  <h2>The party</h2>
+</section>
+
+</body>
+</html>
