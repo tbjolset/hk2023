@@ -3,11 +3,12 @@
 }
 
 body {
+  padding: 1em;
 }
 
 section {
-  margin: 1em;
-  padding: 1em;
+  margin: 1em 0;
+  padding: 1em 0;
   border-bottom: 1px solid #eee;
 }
 
@@ -16,6 +17,19 @@ img {
   max-height: 400px;
 }
 
-li {
+ul.no-disc {
+  padding-left: 0;
+}
+
+.no-disc li {
   list-style-type: none;
+}
+
+li {
+  margin-bottom: 1em;
+  line-height: 1.5em;
+}
+
+td {
+  padding: 0.3em;
 }

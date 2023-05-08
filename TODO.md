@@ -6,3 +6,5 @@
 - Push to github pages
 - Create cs.co/hk2023
 - Send for review
+
+- Avatars for runners

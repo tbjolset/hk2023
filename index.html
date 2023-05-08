@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css"></link>
   <title>Holmenkoll-stafetten 2023</title>
+  <script src="./timelib.js" defer></script>
   <script src="./index.js" defer></script>
   <script src="//unpkg.com/alpinejs" defer></script>
 </head>
@@ -23,34 +24,25 @@
   <div>
     Cisco has a record 5 teams this year! That means 75 runners - and one heck of a party afterwards.
   </div>
-  <div>
-    Organizing comittee:
-    <ul>
-      <li>Henrik Holstad</li>
-      <li>Andreas Aardal Hanssen</li>
-      <li>Hilde Kristine Bjerkan</li>
-      <li>Tore Bjølseth</li>
-    </ul>
-  </div>
 </section>
 
-  <section>
-    <h2>Program</h2>
-    <ul>
-      <li>📸 13:00-14:30 - Pre-race meet </li>
-      <li>🚶‍♀️ 14:30 - People moves to their stages</li>
-      <li>⭐️ 15:00 - 17:30 - Race on!</li>
-      <li>🏰 15:30 - Casa Henrik opens</li>
-      <li>🍔 17:30 - 20:00: Dinner</li>
-      <li>🍻 20:00 - Party</li>
-      <li>🥃 22:30 - Party moves on</li>
-    </ul>
+<section>
+  <h2>Program</h2>
+  <ul class="no-disc">
+    <li>📸 13:00-14:30 - Pre-race meet </li>
+    <li>🚶‍♀️ 14:30 - People moves to their stages</li>
+    <li>⭐️ 15:00 - 17:30 - Race on!</li>
+    <li>🏰 15:30 - Casa Henrik opens</li>
+    <li>🍔 17:30 - 20:00: Dinner</li>
+    <li>🍻 20:00 - Party</li>
+    <li>🥃 22:30 - Party moves on</li>
+  </ul>
 </section>
 
 <section>
   <h2>Pre-race</h2>
   <img src="./images/majorstua.jpeg" />
-  <ul>
+  <ul class="no-disc">
     <li>💚 Remember to bring your green Cisco shirt - so it's easy to spot you on exchange</li>
     <li>💚 Meet at the stairs in fornt of the Majorstuen metro station, towards Kirkeveien</li>
     <li>💚 Get your start number from the team lead (first runner)</li>
@@ -63,7 +55,7 @@
 <section>
   <h2>The teams</h2>
 
-  <div>The number of the team doesn't match the order in which the teams start - it's just the number given by the organizer.</div>
+  <div>The name of the team doesn't match the order in which the teams start or the pace - it's just the number given by the organizer.</div>
 
   <template x-for="team in teams">
     <section>
@@ -74,6 +66,22 @@
         <li x-text="`First runner: ${team.members[1]}`"></li>
         <li><a :href="team.url" target="_blank">Full team</a></li>
       </ul>
+      <table>
+        <tr>
+          <th>Stage</th>
+          <th>Ca start</th>
+          <th>Ca run time</th>
+          <th>Name</th>
+        </tr>
+        <template x-for="time, i in team.schedule">
+          <tr>
+            <td x-text="i + 1"></td>
+            <td x-text="guiTime(time)"></td>
+            <td x-text="guiTime(team.times[i])"></td>
+            <td x-text="team.members[i + 1] || '-'"></td>
+          </tr>
+        </template>
+      </table>
     </section>
   </template>
 
@@ -101,6 +109,18 @@
 
 <section>
   <h2>The party</h2>
+</section>
+
+<section>
+  <div>
+    Organizing comittee:
+    <ul>
+      <li>Henrik Holstad</li>
+      <li>Andreas Aardal Hanssen</li>
+      <li>Hilde Kristine Bjerkan</li>
+      <li>Tore Bjølseth</li>
+    </ul>
+  </div>
 </section>
 
 </body>
