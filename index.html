@@ -79,35 +79,35 @@
   <div><b>Note:</b>The name of the team doesn't match the order in which the teams start or the pace - it's just the number given by the organizer.
   <p>The stage times below are guesses, based on results from previous years. Be sure to be ready and in the exchange area long before the expected exchange time. Particularly for the less ambitious teams, it's hard to give a good estimation.</p>
   </div>
-
-  <template x-for="team in teams">
-    <section>
-      <h2 x-text="`${team.name} (${team.number})`"></h2>
-      <ul>
-        <li x-text="`Meet at Majorstuen T-Bane: ${team.meet}`"></li>
-        <li x-text="`Race start: ${team.time}`"></li>
-        <!-- <li x-text="`First runner: ${team.members[1]}`"></li> -->
-        <!-- <li><a :href="team.url" target="_blank">Full team</a></li> -->
-      </ul>
-      <table>
-        <tr>
-          <th>Stage</th>
-          <th>Runner</th>
-          <th>Ca start</th>
-          <th>Ca run time</th>
-        </tr>
-        <template x-for="time, i in team.schedule">
-          <tr>
-            <td x-text="i + 1"></td>
-            <td x-text="team.members[i + 1] || '-'"></td>
-            <td x-text="guiTime(time)"></td>
-            <td x-text="guiTime(team.times[i])"></td>
-          </tr>
-        </template>
-      </table>
-    </section>
-  </template>
 </section>
+
+<template x-for="team in teams">
+  <section>
+    <h2 x-text="`${team.name} (${team.number})`"></h2>
+    <ul>
+      <li x-text="`Meet at Majorstuen T-Bane: ${team.meet}`"></li>
+      <li x-text="`Race start: ${team.time}`"></li>
+      <!-- <li x-text="`First runner: ${team.members[1]}`"></li> -->
+      <!-- <li><a :href="team.url" target="_blank">Full team</a></li> -->
+    </ul>
+    <table>
+      <tr>
+        <th>Stage</th>
+        <th>Runner</th>
+        <th>Ca start</th>
+        <th>Ca run time</th>
+      </tr>
+      <template x-for="time, i in team.schedule">
+        <tr>
+          <td x-text="i + 1"></td>
+          <td x-text="team.members[i + 1] || '-'"></td>
+          <td x-text="guiTime(time)"></td>
+          <td x-text="guiTime(team.times[i])"></td>
+        </tr>
+      </template>
+    </table>
+  </section>
+</template>
 
 <section>
   <h2>Henrik's place</h2>

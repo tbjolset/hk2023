@@ -2,14 +2,28 @@
   font-family: arial;
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
 body {
-  padding: 1em;
+  padding: 2em;
+  background-color: #1a1a1a;
+  color: #ddd;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+
+h1, h2 {
+  color: white;
 }
 
 section {
   margin: 1em 0;
   padding: 1em 0;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #666;
 }
 
 div {
@@ -17,8 +31,9 @@ div {
 }
 
 img {
-  max-width: 700px;
+  max-width: min(100%, 700px);
   max-height: 400px;
+  border-radius: 20px;
 }
 
 ul {
@@ -40,4 +55,8 @@ li {
 
 td {
   padding: 0.3em;
+}
+
+a {
+  color: #08b8f5;
 }
