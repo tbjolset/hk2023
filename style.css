@@ -12,9 +12,17 @@ section {
   border-bottom: 1px solid #eee;
 }
 
+div {
+  line-height: 1.5em;
+}
+
 img {
-  max-width: 300px;
+  max-width: 700px;
   max-height: 400px;
+}
+
+ul {
+  padding-left: 22px;
 }
 
 ul.no-disc {
