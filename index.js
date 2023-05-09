@@ -94,20 +94,23 @@ const model = {
       const t = await fetchTeam(team.url);
       t.name = team.name;
       t.url = team.url;
+      this.calculateTimes(t, team.pace);
       console.log('team', team.name, 'pace', team.pace);
-      const times = stageTimes.map(time => scaleTime(toTime(time), team.pace));
-      const start = t.time + ':00';
-      // const times = stageTimes.map(st => toTime(st));//.map(scaleTime(t, team.pace));
-      t.times = times;
-      const { schedule, total } = makeSchedule(start, times);
-      t.schedule = schedule;
-      t.total = total;
       data.push(t);
     }
 
     data.sort((t1, t2) => t1.time < t2.time ? -1 : 1);
     this.teams = data;
     console.log(data);
+  },
+
+  calculateTimes(team, pace) {
+    const times = stageTimes.map(time => scaleTime(toTime(time), pace));
+    const start = team.time + ':00';
+    team.times = times;
+    const { schedule, total } = makeSchedule(start, times);
+    team.schedule = schedule;
+    team.total = total;
   },
 
   async fetchAvatars() {
