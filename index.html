@@ -119,6 +119,18 @@
         <td x-text="guiTime(team.total)"></td>
       </tr>
     </table>
+    <div>
+      Team pace:
+      <input
+        type="range"
+        min="90"
+        max="185"
+        @input="setPace(team, $event.target.value)"
+        @change="setPace(team, $event.target.value)"
+        :value="team.pace * 100"
+      />
+      <span x-text="parseInt(team.pace * 100) + '%'"></span>
+    </div>
   </section>
 </template>
 

@@ -94,6 +94,7 @@ const model = {
       const t = await fetchTeam(team.url);
       t.name = team.name;
       t.url = team.url;
+      t.pace = team.pace;
       this.calculateTimes(t, team.pace);
       console.log('team', team.name, 'pace', team.pace);
       data.push(t);
@@ -105,12 +106,17 @@ const model = {
   },
 
   calculateTimes(team, pace) {
+    team.pace = pace;
     const times = stageTimes.map(time => scaleTime(toTime(time), pace));
     const start = team.time + ':00';
     team.times = times;
     const { schedule, total } = makeSchedule(start, times);
     team.schedule = schedule;
     team.total = total;
+  },
+
+  setPace(team, percent) {
+    this.calculateTimes(team, percent / 100);
   },
 
   async fetchAvatars() {
