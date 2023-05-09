@@ -81,6 +81,7 @@ const stageTimes = [
 
 const model = {
   teams: [],
+  total: null,
 
   init() {
     this.fetchTeams();
@@ -98,7 +99,9 @@ const model = {
       const start = t.time + ':00';
       // const times = stageTimes.map(st => toTime(st));//.map(scaleTime(t, team.pace));
       t.times = times;
-      t.schedule = makeSchedule(start, times);
+      const { schedule, total } = makeSchedule(start, times);
+      t.schedule = schedule;
+      t.total = total;
       data.push(t);
     }
 
