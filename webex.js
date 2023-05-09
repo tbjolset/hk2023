@@ -12,6 +12,7 @@ const alias = {
   'Tobias Flatby': 'Tobias Fladby',
   'Sebastian Wood': 'Sebastian Edmund Pedersen Wood',
   'Håkon Sandsmark': 'Håkon Sandsmark', // dont escape å
+  'Shubham Garg': 'shgarg2@cisco.com',
 };
 
 // valid sizes: 40, 50, 80, 110, 640 and 1600.
@@ -28,10 +29,14 @@ function get(url, token) {
     .then(r => r.json());
 }
 
-async function getPerson(name) {
+async function getPerson(name, token) {
   let n = alias[name] || name.replaceAll('ø', 'o').replaceAll('Ø', 'O').replaceAll('å', 'a').replaceAll('æ', 'ae');
-  const url = apiUrl + 'people/?displayName=' + n;
+  const url = n.includes('@')
+    ? apiUrl + 'people/?email=' + n
+    : apiUrl + 'people/?displayName=' + n;
+
   const res = await get(url, token);
+
   if (res && res.items?.length ) {
     const person = res.items[0];
     if (person.avatar) {
