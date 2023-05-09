@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css"></link>
   <title>Holmenkoll-stafetten 2023</title>
+  <script src="./webex.js" defer></script>
+  <script src="./avatars.js" defer></script>
   <script src="./timelib.js" defer></script>
   <script src="./index.js" defer></script>
   <script src="//unpkg.com/alpinejs" defer></script>
@@ -92,19 +94,30 @@
     </ul>
     <table>
       <tr>
-        <th>Stage</th>
+        <th>#</th>
+        <th></th>
         <th>Runner</th>
         <th>Ca start</th>
         <th>Ca run time</th>
       </tr>
       <template x-for="time, i in team.schedule">
-        <tr>
+        <tr x-show="i < 15">
           <td x-text="i + 1"></td>
+          <td >
+            <div :style="avatar(team.members[i + 1])" class="avatar"></div>
+          </td>
           <td x-text="team.members[i + 1] || '-'"></td>
           <td x-text="guiTime(time)"></td>
           <td x-text="guiTime(team.times[i])"></td>
         </tr>
       </template>
+      <tr>
+        <td>🏁</td>
+        <td></td>
+        <td>Finish line:</td>
+        <td x-text="guiTime(team.schedule.at(-1))"></td>
+        <td></td>
+      </tr>
     </table>
   </section>
 </template>

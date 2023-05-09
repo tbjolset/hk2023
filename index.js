@@ -82,7 +82,12 @@ const stageTimes = [
 const model = {
   teams: [],
 
-  async init() {
+  init() {
+    this.fetchTeams();
+    this.fetchAvatars();
+  },
+
+  async fetchTeams() {
     const data = [];
     for (team of teamData) {
       const t = await fetchTeam(team.url);
@@ -102,4 +107,13 @@ const model = {
     console.log(data);
   },
 
+  async fetchAvatars() {
+    this.avatars = await ((await fetch('./avatars.json')).json());
+  },
+
+  avatar(name) {
+    const url = this.avatars[name];
+    if (!url) return '';
+    return { backgroundImage: `url(${url})` };
+  }
 }

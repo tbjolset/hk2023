@@ -1,5 +1,6 @@
 * {
   font-family: arial;
+  box-sizing: border-box;
 }
 
 html, body {
@@ -53,8 +54,31 @@ li {
   line-height: 1.5em;
 }
 
+tr:hover {
+  background-color: #222;
+}
+
+th {
+  text-align: left;
+}
+
 td {
-  padding: 0.3em;
+  padding: 0.6em 0.3em;
+}
+
+table {
+  margin: 2em 0;
+  width: 100%;
+  max-width: 600px;
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-size: cover;
+  background-color: #333;
+  border: 0;
 }
 
 a {
