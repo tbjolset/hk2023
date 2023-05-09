@@ -35,7 +35,7 @@ const teamData = [
   {
     name: 'Cisco 1 Intermediate',
     url: 'https://docs.google.com/document/d/e/2PACX-1vRuU3iR9Ai5BfkBChwS58H9kEGXatXH8F99iGybzfdyNePTVWp6ptheBj8REcZdoRbBqJ7FINnYcKmv/pub',
-    pace: 1.2,
+    pace: 1.25,
   },
   {
     name: 'Cisco 2 Pro',
@@ -45,37 +45,37 @@ const teamData = [
   {
     name: 'Team 3 Run For Fun',
     url: 'https://docs.google.com/document/d/e/2PACX-1vTjPjzHLB_G5CSUmvJHVgBg1yRhrLVHMhTL_wY9u4666khfTsYQmkNE2x_aEdJzLkfN9YtS_cEKeRf9/pub',
-    pace: 1.3,
+    pace: 1.4,
   },
   {
     name: 'Team 4 Run For Fun',
     url: 'https://docs.google.com/document/d/e/2PACX-1vTAAzckBMt1WDrdKCeHa9TRAqRWanR6noT5JXlXXZJn0AXXu_lT6Jb0LeN5iYAN-pGG1IUuegatIJ1l/pub',
-    pace: 1.3,
+    pace: 1.4,
   },
   {
     name: 'Team 5 Intermediate',
     url: 'https://docs.google.com/document/d/e/2PACX-1vTzUoyHwSZjQvMFcLz4RgtD8aLUcTTgzPkibqZwq6JZOzhMt3OR8blDpdsInIECdqAs3Ee7VJKBGh3j/pub',
-    pace: 1.2,
+    pace: 1.25,
   },
 ];
 
 // fast stage times (cisco, 2019 -> total time 1:02:34)
 const stageTimes = [
+  '3:20',
   '3:35',
-  '4:03',
+  '1:48',
+  '6:20',
+  '3:50',
+  '4:35',
+  '6:40',
+  '4:50',
+  '1:45',
+  '8:15',
+  '4:40',
+  '0:59',
+  '3:20',
   '2:00',
-  '6:43',
-  '4:12',
-  '4:49',
-  '7:02',
-  '4:57',
-  '1:55',
-  '9:05',
-  '5:17',
-  '1:11',
-  '3:48',
-  '2:23',
-  '1:34',
+  '1:30',
 ];
 
 
