@@ -41,7 +41,6 @@ async function getPerson(name, token) {
     const person = res.items[0];
     if (person.avatar) {
       const url = resizeImage(person.avatar, 640);
-      console.log('found avatar', name);
       return url;
     }
     else {
@@ -61,6 +60,7 @@ async function fetchAllAvatars(teams, token) {
   const persons = {};
   for (team of teams) {
     for (person of Object.values(team.members)) {
+      console.log(`Fetching ${Object.keys(persons).length + 1}: ${person}`);
       const avatar = await getPerson(person, token);
       persons[person] = avatar;
       await sleep(500);
