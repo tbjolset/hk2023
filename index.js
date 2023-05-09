@@ -19,7 +19,7 @@ function parse(html) {
   const members = {};
   rows.forEach(row => {
     const [pos, time, name] = findAll(row, 'td').map(c => c.innerText);
-    members[pos] = name;
+    members[pos] = name.trim();
   });
 
   return { meet, time, members, number };

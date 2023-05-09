@@ -6,6 +6,14 @@
 
 const apiUrl = 'https://webexapis.com/v1/';
 
+const alias = {
+  'Alicia Sastre': 'Alicia Garcia Sastre',
+  'Hilde Bjerkan': 'Hilde Kristine Bjerkan',
+  'Tobias Flatby': 'Tobias Fladby',
+  'Sebastian Wood': 'Sebastian Edmund Pedersen Wood',
+  'Håkon Sandsmark': 'Håkon Sandsmark', // dont escape å
+};
+
 // valid sizes: 40, 50, 80, 110, 640 and 1600.
 function resizeImage(url, size) {
   return url ? url.replace('~1600', '~' + size) : '';
@@ -21,7 +29,8 @@ function get(url, token) {
 }
 
 async function getPerson(name) {
-  const url = apiUrl + 'people/?displayName=' + name;
+  let n = alias[name] || name.replaceAll('ø', 'o').replaceAll('Ø', 'O').replaceAll('å', 'a').replaceAll('æ', 'ae');
+  const url = apiUrl + 'people/?displayName=' + n;
   const res = await get(url, token);
   if (res && res.items?.length ) {
     const person = res.items[0];
