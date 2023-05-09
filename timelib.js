@@ -58,6 +58,5 @@ function makeSchedule(startTime, stages) {
 
   const sec = stages.reduce((sum, time) => sum + toSec(time), 0);
   const total = normalize({ hour: 0, min: 0, sec });
-  console.log({ total });
   return { schedule: times, total };
 }

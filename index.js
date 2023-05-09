@@ -96,7 +96,6 @@ const model = {
       t.url = team.url;
       t.pace = team.pace;
       this.calculateTimes(t, team.pace);
-      console.log('team', team.name, 'pace', team.pace);
       data.push(t);
     }
 
