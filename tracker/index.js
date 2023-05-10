@@ -46,7 +46,7 @@ function calcLength(path) {
 async function addStages(map) {
   const data = await (await fetch('./stages.json')).json();
 
-  data.forEach((stageData) => {
+  data.forEach((stageData, i) => {
     const path = new google.maps.Polyline({
       path: stageData,
       geodesic: true,
@@ -55,6 +55,21 @@ async function addStages(map) {
       strokeWeight: 2,
     });
     path.setMap(map);
+
+    // start of stage marker
+    const marker = new Marker({
+      map,
+      label: String(i + 1),
+      position: stageData[0],
+      icon: {
+        url: `http://maps.google.com/mapfiles/kml/pal2/icon26.png`,
+        scaledSize: {
+          width: 25,
+          height: 25,
+        },
+
+      },
+    });
   });
 
   stages = data;

@@ -22,14 +22,18 @@ ul.legend {
   bottom: 1em;
   left: 1em;
   background-color: white;
-  padding: 1em;
+  padding: 0 1em;
   list-style: none;
   padding-left: 10px;
 }
 
+ul.legend li {
+  margin: 10px 0;
+}
+
 .legend img {
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
 }
 
 button.demo {
