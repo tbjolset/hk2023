@@ -1,6 +1,6 @@
 # Basics
 
-- Add alpine.js
+- Team legends
 - Basic server delivering points
 - Get list of who is running
 - Mechanism to set fake data

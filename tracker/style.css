@@ -1,7 +1,8 @@
-/*
- * Always set the map height explicitly to define the size of the div element
- * that contains the map.
- */
+* {
+  font-family: Arial;
+  box-sizing: border-box;
+}
+
  #map {
   height: 100%;
 }
@@ -14,6 +15,21 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+}
+
+ul.legend {
+  position: absolute;
+  bottom: 1em;
+  left: 1em;
+  background-color: white;
+  padding: 1em;
+  list-style: none;
+  padding-left: 10px;
+}
+
+.legend img {
+  width: 30px;
+  height: 30px;
 }
 
 button.demo {
