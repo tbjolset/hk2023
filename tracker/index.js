@@ -9,19 +9,23 @@ const mapCenter = {
 const pollIntervalSec = 10;
 
 const teams = [
-  { name: 'Cisco 1', color: 'green' },
-  { name: 'Cisco 2', color: 'blue' },
-  { name: 'Cisco 3', color: 'red' },
-  { name: 'Cisco 4', color: 'orange' },
-  { name: 'Cisco 5', color: 'pink' },
+  { id: 'Cisco 1', color: 'green' },
+  { id: 'Cisco 2', color: 'blue' },
+  { id: 'Cisco 3', color: 'red' },
+  { id: 'Cisco 4', color: 'orange' },
+  { id: 'Cisco 5', color: 'pink' },
 ];
 
 let stages;
 
 const teamMarkers = [];
 
-function pollTrackingData() {
-  console.log('poll data');
+async function pollTrackingData() {
+  const data = await pollMockData();
+  data.forEach((point) => {
+    const marker = teamMarkers.find(t => t.id === point.id)?.marker;
+    marker.setPosition(point);
+  })
 }
 
 function interpolate(pos1, pos2, ratio) {
@@ -67,7 +71,7 @@ function createTeamMarkers(map, teams) {
       position: stages[0][0],
       icon: `http://maps.google.com/mapfiles/ms/icons/${team.color}-dot.png`,
     });
-    teamMarkers.push({ team: team.name, marker });
+    teamMarkers.push({ id: team.id, marker });
   });
 
   console.log(teamMarkers);
