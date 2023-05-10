@@ -1,9 +1,6 @@
 # Basics
 
-- Add track for holmenkollen
-- Show stages on map
-
-- Get token, make it work on public web site
+- Test on mobile
 - Mechanism to set fake data
 - Main loop to fetch data
 - Show marker for 5 teams (just plain gps position)
