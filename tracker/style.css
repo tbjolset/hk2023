@@ -26,6 +26,7 @@ button.demo {
   border: 0;
   border-radius: 2em;
   cursor: pointer;
+  display: none;
 }
 
 /** for map avatars */

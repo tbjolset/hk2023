@@ -2,7 +2,11 @@
 // json paths
 
 const fs = require('fs');
-const kml = fs.readFileSync('./Holmenkollstafetten.kml').toString();
+
+const input = './Holmenkollstafetten.kml';
+const output = 'stages.json';
+
+const kml = fs.readFileSync(input).toString();
 
 function stripTags(text) {
   return text.replaceAll(/<(.*?)>/g, '').trim();
@@ -24,4 +28,6 @@ const coords = kml
   .map(stripTags)
   .map(toStruct);
 
-fs.writeFileSync('stages.json', JSON.stringify(coords, null, 2));
+
+fs.writeFileSync(output, JSON.stringify(coords, null, 2));
+console.log('converted', input, 'to', output);
