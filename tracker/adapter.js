@@ -13,3 +13,7 @@ function pollMockData() {
   };
   return points;
 }
+
+function pollReal() {
+  return []; // TODO
+}

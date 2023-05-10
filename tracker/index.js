@@ -21,7 +21,8 @@ let stages;
 const teamMarkers = [];
 
 async function pollTrackingData() {
-  const data = await pollMockData();
+  const mock = location.search.includes('dev');
+  const data = mock ? await pollMockData() : await pollReal();
   data.forEach((point) => {
     const marker = teamMarkers.find(t => t.id === point.id)?.marker;
     marker.setPosition(point);
