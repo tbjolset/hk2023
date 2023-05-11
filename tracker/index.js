@@ -6,7 +6,7 @@ const mapCenter = {
   "lng": 10.70434527968958
 }
 
-const pollIntervalSec = 10;
+const pollIntervalSec = 30;
 
 const teams = [
   { id: 'Cisco 1', color: 'green' },
