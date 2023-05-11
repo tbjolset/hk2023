@@ -1,6 +1,5 @@
 # Basics
 
-- Basic server delivering points
 - Get list of who is running
 - Find closes track point to gps position
 - Fade out marker if old, remove eventually

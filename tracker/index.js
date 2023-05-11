@@ -118,16 +118,18 @@ async function initMap() {
   map = new Map(document.getElementById("map"), {
     zoom: 13,
     center: mapCenter,
-    mapId: "hk-map",
     // mapTypeId: 'terrain',
   });
 
   map.addListener('click', onMapClick);
-  // await addStages(map);
-  // createTeamMarkers(map, teams);
-  // pollTrackingData();
-  // setInterval(pollTrackingData, pollIntervalSec * 1000);
-  showGpsFile(map, './testtrack.json');
+  await addStages(map);
+  createTeamMarkers(map, teams);
+  pollTrackingData();
+  setInterval(pollTrackingData, pollIntervalSec * 1000);
+  // showGpsFile(map, './testtrack.json');
+  map.setOptions({
+    styles: config.mapStyles,
+  });
 }
 
 initMap();
