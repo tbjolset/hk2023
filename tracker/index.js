@@ -17,6 +17,7 @@ const teams = [
 ];
 
 let stages;
+let avatars = [];
 
 const teamMarkers = [];
 
@@ -111,6 +112,21 @@ async function showGpsFile(map, file) {
   });
 }
 
+async function fetchAvatars() {
+  return await ((await fetch('../avatars.json')).json());
+}
+
+async function fetchTeams() {
+  const data = [];
+  for (const team of teamData) {
+    const t = await fetchTeam(team.url);
+    t.name = team.name;
+    t.pace = team.pace;
+    data.push(t);
+  }
+  console.log('teams', data);
+}
+
 async function initMap() {
 
   const { Map } = await google.maps.importLibrary("maps");
@@ -123,6 +139,7 @@ async function initMap() {
 
   map.addListener('click', onMapClick);
   await addStages(map);
+  await fetchTeams();
   createTeamMarkers(map, teams);
   pollTrackingData();
   setInterval(pollTrackingData, pollIntervalSec * 1000);
@@ -130,6 +147,8 @@ async function initMap() {
   map.setOptions({
     styles: config.mapStyles,
   });
+  avatars = await fetchAvatars();
+  console.log(avatars);
 }
 
 initMap();
