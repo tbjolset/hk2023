@@ -67,7 +67,6 @@ async function addStages(map) {
           width: 25,
           height: 25,
         },
-
       },
     });
   });
@@ -93,6 +92,25 @@ function createTeamMarkers(map, teams) {
   console.log(teamMarkers);
 }
 
+async function showGpsFile(map, file) {
+  const positions = await (await fetch(file)).json();
+  console.log('got', positions);
+  positions.forEach((pos, i) => {
+    const marker = new Marker({
+      map,
+      position: pos,
+      label: String(i + 1),
+      icon: {
+        url: `http://maps.google.com/mapfiles/kml/pal2/icon26.png`,
+        scaledSize: {
+          width: 25,
+          height: 25,
+        },
+      },
+    });
+  });
+}
+
 async function initMap() {
 
   const { Map } = await google.maps.importLibrary("maps");
@@ -100,14 +118,16 @@ async function initMap() {
   map = new Map(document.getElementById("map"), {
     zoom: 13,
     center: mapCenter,
-    mapId: "DEMO_MAP_ID",
+    mapId: "hk-map",
+    // mapTypeId: 'terrain',
   });
 
   map.addListener('click', onMapClick);
-  await addStages(map);
-  createTeamMarkers(map, teams);
-  pollTrackingData();
-  setInterval(pollTrackingData, pollIntervalSec * 1000);
+  // await addStages(map);
+  // createTeamMarkers(map, teams);
+  // pollTrackingData();
+  // setInterval(pollTrackingData, pollIntervalSec * 1000);
+  showGpsFile(map, './testtrack.json');
 }
 
 initMap();
