@@ -1,5 +1,5 @@
 // TODO!
-const pollUrl = 'http://10.47.76.83:5000/trackers';
+const pollUrl = 'http://localhost:5000/trackers';
 
 function pollMockData() {
   const rand = (max) => Math.floor(Math.random() * max);
