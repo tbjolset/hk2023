@@ -8,7 +8,7 @@ const hvalstad = { lat: 59.86421811683712, lng: 10.46892377064593 };
 const hk = { lat: 59.93650304183593, lng: 10.70434527968958 };
 const mapCenter = hk;
 
-const pollIntervalSec = 15;
+const pollIntervalSec = 10;
 const mapZoom = 13; // 13
 const tooOldData = 120;
 
