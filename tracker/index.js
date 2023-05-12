@@ -27,18 +27,9 @@ async function pollTrackingData() {
   data.forEach((point) => {
     const marker = teamMarkers.find(t => t.id === point.id)?.marker;
     marker.setPosition(point);
-    // TODO
-    const old = Math.random();
-    if (old < 0.5) {
-      marker.setIcon({
-        url: 'http://maps.google.com/mapfiles/kml/shapes/caution.png',
-        scaledSize: {
-          width: 30,
-          height: 30,
-        }
-      });
-      // TODO need to reset if not invalid anymore
-    }
+
+    // todo: old data icon:
+    // url: 'http://maps.google.com/mapfiles/kml/shapes/caution.png',30,30
   })
 }
 
