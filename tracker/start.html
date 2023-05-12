@@ -1,0 +1,27 @@
+
+<button>Start tracker</button>
+
+<script>
+const url = 'http://kyberheimen.com:5000/triggers';
+
+async function go() {
+  console.log('post');
+  const body = { "shouldStart": true };
+  const options = {
+    method: 'POST',
+    body: JSON.stringify(body),
+  };
+  try {
+    const res = await fetch(url, options);
+    const text = await res.text();
+    alert('Grabber started');
+    console.log(res.status, res.statusText, text);
+  }
+  catch(e) {
+    console.log(e);
+    alert('Unable to reach site');
+  }
+}
+
+document.querySelector('button').onclick = go;
+</script>
