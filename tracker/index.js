@@ -5,7 +5,7 @@ const hvalstad = { lat: 59.86421811683712, lng: 10.46892377064593 };
 const hk = { lat: 59.93650304183593, lng: 10.70434527968958 };
 const mapCenter = hk;
 
-const pollIntervalSec = 5;
+const pollIntervalSec = 15;
 const mapZoom = 13; // 13
 const tooOldData = 120;
 
@@ -25,6 +25,7 @@ const teamMarkers = [];
 async function pollTrackingData() {
   const mock = location.search.includes('dev');
   const data = mock ? await pollMockData() : await pollReal();
+  console.log(data);
   data.forEach((point, i) => {
     const marker = teamMarkers.find(t => t.id === point.id)?.marker;
     marker.setPosition(point);
@@ -41,7 +42,7 @@ async function pollTrackingData() {
     if (list.length) {
       const index = Math.floor(Math.random() * list.length);
       const avatar = avatars[list[index]];
-      console.log(index, avatar);
+
       if (avatar) {
         teamMarker = avatar.replace('~640', '~80');
       }

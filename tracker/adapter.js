@@ -1,5 +1,13 @@
 const pollUrl = 'http://kyberheimen.com:5000/trackers'
 
+const trackerIds = {
+  DSJZDCTW: 'Cisco 5',
+  EYQOQBBX: 'Cisco 1',
+  GYPQIFVS: 'Cisco 4',
+  IOSMRZMD: 'Cisco 3',
+  NQSCQDCF: 'Cisco 2',
+};
+
 function pollMockData() {
   const rand = (max) => Math.floor(Math.random() * max);
 
@@ -11,6 +19,8 @@ function pollMockData() {
       id: 'Cisco ' + t,
       lat: p.lat,
       lng: p.lng,
+      velocity: 5,
+      uncertainty: 10,
       timestamp: parseInt(Date.now() / 1000),
     });
   };
@@ -23,8 +33,9 @@ async function pollReal() {
   const res = [];
   for (let t = 0; t<data.trackers.length; t++) {
     const el = data.trackers[t];
+    const name = trackerIds[el.id];
     res.push({
-      id: 'Cisco ' + (t + 1),
+      id: name,
       lat: el.pos.lat,
       lng: el.pos.lng,
       timestamp: el.timestamp,
