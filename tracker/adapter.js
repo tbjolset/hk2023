@@ -39,32 +39,14 @@ async function pollReal() {
   allData.push(data);
   console.log(allData);
 
+  const res = [];
+  for (let t = 0; t<5; t++) {
+    res.push({
+      id: 'Cisco ' + (t + 1),
+      lat: data.trackers[t].pos.lat,
+      lng: data.trackers[t].pos.lng,
+    })
+  }
 
-  return [
-    {
-      id: 'Cisco 1',
-      lat: data.trackers[0].pos.lat,
-      lng: data.trackers[0].pos.lng,
-    },
-    {
-      id: 'Cisco 2',
-      lat: data.trackers[1].pos.lat,
-      lng: data.trackers[1].pos.lng,
-    },
-    {
-      id: 'Cisco 3',
-      lat: data.trackers[2].pos.lat,
-      lng: data.trackers[2].pos.lng,
-    },
-    {
-      id: 'Cisco 4',
-      lat: data.trackers[3].pos.lat,
-      lng: data.trackers[3].pos.lng,
-    },
-    {
-      id: 'Cisco 5',
-      lat: data.trackers[4].pos.lat,
-      lng: data.trackers[4].pos.lng,
-    },
-  ];
+  return res;
 }
