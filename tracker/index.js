@@ -3,10 +3,10 @@ let Marker;
 
 const hvalstad = { lat: 59.86421811683712, lng: 10.46892377064593 };
 const hk = { lat: 59.93650304183593, lng: 10.70434527968958 };
-const mapCenter = hvalstad;
+const mapCenter = hk;
 
 const pollIntervalSec = 5;
-const mapZoom = 19; // 13
+const mapZoom = 13; // 13
 const tooOldData = 120;
 
 const teams = [
@@ -31,18 +31,42 @@ async function pollTrackingData() {
     const age = parseInt((Date.now() / 1000) - point.timestamp);
     const time = new Date(point.timestamp * 1000);
     const tooOld = age > tooOldData;
-    console.log('point', point.id, 'age', age, 's');
+    // console.log('point', point.id, 'age', age, 's');
 
     // const tooOld= Math.random() < 0.3;
 
+    // just random avatar for creating a demo
+    let teamMarker = getMarkerUrl(i);
+    const list = Object.keys(avatars);
+    if (list.length) {
+      const index = Math.floor(Math.random() * list.length);
+      const avatar = avatars[list[index]];
+      console.log(index, avatar);
+      if (avatar) {
+        teamMarker = avatar.replace('~640', '~40');
+      }
+    }
+
+
     const icon = tooOld
       ? 'http://maps.google.com/mapfiles/kml/shapes/caution.png'
-      : getMarkerUrl(i)
-    marker.setIcon(icon);
+      : teamMarker;
+
+     marker.setIcon(icon);
 
     // todo: old data icon:
     // url: 'http://maps.google.com/mapfiles/kml/shapes/caution.png',30,30
   })
+}
+
+function findStage(point) {
+  console.log('find', point);
+  const team = 0;
+  const stage = 0;
+  return {
+    team,
+    stage,
+  };
 }
 
 function interpolate(pos1, pos2, ratio) {
