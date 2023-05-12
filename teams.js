@@ -33,26 +33,31 @@ async function fetchTeam(url) {
 
 const teamData = [
   {
+    id: 'Cisco 1',
     name: 'Cisco 1 Intermediate',
     url: 'https://docs.google.com/document/d/e/2PACX-1vRuU3iR9Ai5BfkBChwS58H9kEGXatXH8F99iGybzfdyNePTVWp6ptheBj8REcZdoRbBqJ7FINnYcKmv/pub',
     pace: 1.25,
   },
   {
+    id: 'Cisco 2',
     name: 'Cisco 2 Pro',
     url: 'https://docs.google.com/document/d/e/2PACX-1vSbCaC3QOSx1i6gASg5q-cKjpcHu3W74LjZAiHt7eSigtNbzGFVsXL1evN5_0JAU68Ms3mrYmna0eBQ/pub',
     pace: 1.0,
   },
   {
+    id: 'Cisco 3',
     name: 'Team 3 Run For Fun',
     url: 'https://docs.google.com/document/d/e/2PACX-1vTjPjzHLB_G5CSUmvJHVgBg1yRhrLVHMhTL_wY9u4666khfTsYQmkNE2x_aEdJzLkfN9YtS_cEKeRf9/pub',
     pace: 1.4,
   },
   {
+    id: 'Cisco 4',
     name: 'Team 4 Run For Fun',
     url: 'https://docs.google.com/document/d/e/2PACX-1vTAAzckBMt1WDrdKCeHa9TRAqRWanR6noT5JXlXXZJn0AXXu_lT6Jb0LeN5iYAN-pGG1IUuegatIJ1l/pub',
     pace: 1.4,
   },
   {
+    id: 'Cisco 5',
     name: 'Team 5 Intermediate',
     url: 'https://docs.google.com/document/d/e/2PACX-1vTzUoyHwSZjQvMFcLz4RgtD8aLUcTTgzPkibqZwq6JZOzhMt3OR8blDpdsInIECdqAs3Ee7VJKBGh3j/pub',
     pace: 1.25,

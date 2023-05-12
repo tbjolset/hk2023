@@ -1,5 +1,8 @@
 let map;
 let Marker;
+let stages;
+let avatars = {};
+let teamInfo = [];
 
 const hvalstad = { lat: 59.86421811683712, lng: 10.46892377064593 };
 const hk = { lat: 59.93650304183593, lng: 10.70434527968958 };
@@ -17,15 +20,13 @@ const teams = [
   { id: 'Cisco 5', color: 'pink' },
 ];
 
-let stages;
-let avatars = {};
-
 const teamMarkers = [];
 
 async function pollTrackingData() {
   const mock = location.search.includes('dev');
   const data = mock ? await pollMockData() : await pollReal();
   console.log(data);
+
   data.forEach((point, i) => {
     const marker = teamMarkers.find(t => t.id === point.id)?.marker;
     marker.setPosition(point);
@@ -36,18 +37,10 @@ async function pollTrackingData() {
 
     // const tooOld= Math.random() < 0.3;
 
-    // just random avatar for creating a demo
-    let teamMarker = getMarkerUrl(i);
-    const list = Object.keys(avatars);
-    if (list.length) {
-      const index = Math.floor(Math.random() * list.length);
-      const avatar = avatars[list[index]];
+    const stage = findStage(point);
+    const runner = getRunner(point.id, stage);
 
-      if (avatar) {
-        teamMarker = avatar.replace('~640', '~80');
-      }
-    }
-
+    const teamMarker = getMarkerUrl(runner);
 
     const icon = tooOld
       ? 'http://maps.google.com/mapfiles/kml/shapes/caution.png'
@@ -60,14 +53,20 @@ async function pollTrackingData() {
   })
 }
 
+function sort(dist1, dist2) {
+  return dist1 - dist2;
+}
+
 function findStage(point) {
-  console.log('find', point);
-  const team = 0;
-  const stage = 0;
-  return {
-    team,
-    stage,
-  };
+  const distances = stages.map((stage, n) => {
+    const d = stage.map(p => calcDist(p, point));
+    d.sort(sort);
+    // console.log('stage', n, d);
+    return d[0];
+  });
+
+  const stage = distances.indexOf(Math.min(...distances));
+  return stage;
 }
 
 function interpolate(pos1, pos2, ratio) {
@@ -84,8 +83,19 @@ function calcLength(path) {
   return google.maps.geometry.spherical.computeLength(path);
 }
 
-function getMarkerUrl(teamIndex) {
-  const col = teams[teamIndex].color;
+function getRunner(teamId, stage) {
+  const team = teamInfo.find(t => t.id === teamId);
+  return team && team.members[stage + 1];
+}
+
+function getMarkerUrl(name) {
+  const avatar = avatars?.[name];
+  if (avatar) {
+    const url = avatar.replace('~640', '~80');
+    return url;
+  }
+
+  const col = 'red';
   return `http://maps.google.com/mapfiles/ms/icons/${col}-dot.png`;
 }
 
@@ -121,7 +131,8 @@ async function addStages(map) {
 
 function onMapClick(event) {
   const loc = { lat: event.latLng.lat(), lng: event.latLng.lng() };
-  console.log(loc);
+  const stage = findStage(loc);
+  console.log(loc, 'closest to stage', stage + 1);
 }
 
 function createTeamMarkers(map, teams) {
@@ -130,7 +141,7 @@ function createTeamMarkers(map, teams) {
       map,
       position: stages[0][0],
       icon: {
-        url: getMarkerUrl(i),
+        url: getMarkerUrl(),
         scaledSize: {
           width: 50,
           height: 50,
@@ -173,11 +184,13 @@ async function fetchTeams() {
   const data = [];
   for (const team of teamData) {
     const t = await fetchTeam(team.url);
+    t.id = team.id;
     t.name = team.name;
     t.pace = team.pace;
     data.push(t);
   }
   console.log('teams', data);
+  return data;
 }
 
 async function initMap() {
@@ -192,9 +205,10 @@ async function initMap() {
 
   map.addListener('click', onMapClick);
   await addStages(map);
-  await fetchTeams();
+  teamInfo = await fetchTeams();
+  console.log('teamdata', teamData);
   createTeamMarkers(map, teams);
-  pollTrackingData();
+  setTimeout(pollTrackingData, 3_000);
   setInterval(pollTrackingData, pollIntervalSec * 1000);
   // showGpsFile(map, './testtrack.json');
   map.setOptions({
