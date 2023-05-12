@@ -204,5 +204,11 @@ async function initMap() {
   // showGpsFile(map, './second-bikeride.json');
 }
 
+if (location.href.startsWith('https://')) {
+  location.href = location.href.replace('https://', 'http://');
+  // necessary because page talks with a http server
+}
+
 initMap();
+
 
