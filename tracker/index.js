@@ -3,6 +3,7 @@ let Marker;
 let stages;
 let avatars = {};
 let teamInfo = [];
+let infoWindow;
 
 const hvalstad = { lat: 59.86421811683712, lng: 10.46892377064593 };
 const hk = { lat: 59.93650304183593, lng: 10.70434527968958 };
@@ -31,7 +32,7 @@ async function pollTrackingData() {
     const marker = teamMarkers.find(t => t.id === point.id)?.marker;
     marker.setPosition(point);
     const age = parseInt((Date.now() / 1000) - point.timestamp);
-    const time = new Date(point.timestamp * 1000);
+    const time = new Date(point.timestamp * 1000).toLocaleTimeString();
     const tooOld = age > tooOldData;
     // console.log('point', point.id, 'age', age, 's');
 
@@ -47,6 +48,18 @@ async function pollTrackingData() {
       : teamMarker;
 
      marker.setIcon(icon);
+     marker.addListener('click', (event) => {
+      if (infoWindow) {
+        infoWindow.close();
+      }
+      let content = `Team: <b>${point.id}</b>`;
+      content += `<br/>Runner: <b>${runner}</b>`;
+      content += `<br/>Stage: <b>${stage + 1}</b>`;
+      content += `<br/>Sample time: <b>${time}</b>`;
+
+      infoWindow.setContent(content);
+      infoWindow.open(marker.map, marker);
+     });
 
     // todo: old data icon:
     // url: 'http://maps.google.com/mapfiles/kml/shapes/caution.png',30,30
@@ -195,7 +208,8 @@ async function fetchTeams() {
 
 async function initMap() {
 
-  const { Map } = await google.maps.importLibrary("maps");
+  const { Map, InfoWindow } = await google.maps.importLibrary("maps");
+  infoWindow = new InfoWindow();
   Marker = (await google.maps.importLibrary("marker")).Marker;
   map = new Map(document.getElementById("map"), {
     zoom: mapZoom,
