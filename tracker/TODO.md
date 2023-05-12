@@ -1,6 +1,5 @@
 # Basics
 
-- Make sure kyberheimen python server works
 - Fade out marker if old, remove eventually
 - Link from main page to tracker
 - Show picture of current runner
