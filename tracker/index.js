@@ -97,7 +97,7 @@ async function addStages(map) {
       geodesic: true,
       strokeColor: '#00aacc',
       strokeOpacity: 1.0,
-      strokeWeight: 2,
+      strokeWeight: 4,
     });
     path.setMap(map);
 
