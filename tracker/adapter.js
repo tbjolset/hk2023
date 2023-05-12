@@ -1,5 +1,4 @@
-// TODO!
-const pollUrl = 'http://localhost:5000/trackers';
+const pollUrl = 'http://kyberheimen.com:5000/trackers'
 
 function pollMockData() {
   const rand = (max) => Math.floor(Math.random() * max);
