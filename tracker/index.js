@@ -95,7 +95,7 @@ async function addStages(map) {
     const path = new google.maps.Polyline({
       path: stageData,
       geodesic: true,
-      strokeColor: '#FF0000',
+      strokeColor: '#00aacc',
       strokeOpacity: 1.0,
       strokeWeight: 2,
     });
