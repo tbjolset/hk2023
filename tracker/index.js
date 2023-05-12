@@ -43,7 +43,7 @@ async function pollTrackingData() {
       const avatar = avatars[list[index]];
       console.log(index, avatar);
       if (avatar) {
-        teamMarker = avatar.replace('~640', '~40');
+        teamMarker = avatar.replace('~640', '~80');
       }
     }
 
