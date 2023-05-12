@@ -6,6 +6,7 @@
   - Map gps position to closest track
   - Link back to teams page
 - Show your own pos
+- Tap marker to see runner name, team, date of data
 
 - add link to eq timing
 

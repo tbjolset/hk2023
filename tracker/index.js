@@ -1,12 +1,13 @@
 let map;
 let Marker;
 
-const mapCenter = {
-  "lat": 59.93650304183593,
-  "lng": 10.70434527968958
-}
+const hvalstad = { lat: 59.86421811683712, lng: 10.46892377064593 };
+const hk = { lat: 59.93650304183593, lng: 10.70434527968958 };
+const mapCenter = hvalstad;
 
-const pollIntervalSec = 10;
+const pollIntervalSec = 5;
+const mapZoom = 19; // 13
+const tooOldData = 120;
 
 const teams = [
   { id: 'Cisco 1', color: 'green' },
@@ -24,9 +25,20 @@ const teamMarkers = [];
 async function pollTrackingData() {
   const mock = location.search.includes('dev');
   const data = mock ? await pollMockData() : await pollReal();
-  data.forEach((point) => {
+  data.forEach((point, i) => {
     const marker = teamMarkers.find(t => t.id === point.id)?.marker;
     marker.setPosition(point);
+    const age = parseInt((Date.now() / 1000) - point.timestamp);
+    const time = new Date(point.timestamp * 1000);
+    const tooOld = age > tooOldData;
+    console.log('point', point.id, 'age', age, 's');
+
+    // const tooOld= Math.random() < 0.3;
+
+    const icon = tooOld
+      ? 'http://maps.google.com/mapfiles/kml/shapes/caution.png'
+      : getMarkerUrl(i)
+    marker.setIcon(icon);
 
     // todo: old data icon:
     // url: 'http://maps.google.com/mapfiles/kml/shapes/caution.png',30,30
@@ -47,6 +59,11 @@ function calcLength(path) {
   return google.maps.geometry.spherical.computeLength(path);
 }
 
+function getMarkerUrl(teamIndex) {
+  const col = teams[teamIndex].color;
+  return `http://maps.google.com/mapfiles/ms/icons/${col}-dot.png`;
+}
+
 async function addStages(map) {
   const data = await (await fetch('./stages.json')).json();
 
@@ -60,7 +77,6 @@ async function addStages(map) {
     });
     path.setMap(map);
 
-    // start of stage marker
     const marker = new Marker({
       map,
       label: String(i + 1),
@@ -84,12 +100,12 @@ function onMapClick(event) {
 }
 
 function createTeamMarkers(map, teams) {
-  teams.forEach((team) => {
+  teams.forEach((team, i) => {
     const marker = new Marker({
       map,
       position: stages[0][0],
       icon: {
-        url: `http://maps.google.com/mapfiles/ms/icons/${team.color}-dot.png`,
+        url: getMarkerUrl(i),
         scaledSize: {
           width: 50,
           height: 50,
@@ -144,7 +160,7 @@ async function initMap() {
   const { Map } = await google.maps.importLibrary("maps");
   Marker = (await google.maps.importLibrary("marker")).Marker;
   map = new Map(document.getElementById("map"), {
-    zoom: 13,
+    zoom: mapZoom,
     center: mapCenter,
     // mapTypeId: 'terrain',
   });
@@ -160,7 +176,7 @@ async function initMap() {
     styles: config.mapStyles,
   });
   avatars = await fetchAvatars();
-  showGpsFile(map, './second-bikeride.json');
+  // showGpsFile(map, './second-bikeride.json');
 }
 
 initMap();
