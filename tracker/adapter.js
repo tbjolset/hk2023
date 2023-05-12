@@ -21,7 +21,7 @@ async function pollReal() {
   const data = await (await fetch(pollUrl)).json();
 
   const res = [];
-  for (let t = 0; t<5; t++) {
+  for (let t = 0; t<data.trackers.length; t++) {
     const el = data.trackers[t];
     res.push({
       id: 'Cisco ' + (t + 1),
