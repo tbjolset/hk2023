@@ -33,7 +33,7 @@ async function pollReal() {
   const res = [];
   for (let t = 0; t<data.trackers.length; t++) {
     const el = data.trackers[t];
-    const name = trackerIds[el.id];
+    const name = trackerIds[el.id] || `Tracker: $[el.id]`;
     res.push({
       id: name,
       lat: el.pos.lat,
