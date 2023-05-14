@@ -4,6 +4,7 @@ let stages;
 let avatars = {};
 let teamInfo = [];
 let infoWindow;
+let playbackSpeed = 3; // increase to slow down playback
 
 const hvalstad = { lat: 59.86421811683712, lng: 10.46892377064593 };
 const hk = { lat: 59.93650304183593, lng: 10.70434527968958 };
@@ -13,12 +14,16 @@ const pollIntervalSec = 5;
 const mapZoom = 13; // 13
 const tooOldData = 120;
 
+function toTime(text) {
+  return new Date(`2023-05-13T${text}`).getTime() / 1000;
+}
+
 const teams = [
-  { id: 'Cisco 1', color: 'green' },
-  { id: 'Cisco 2', color: 'blue' },
-  { id: 'Cisco 3', color: 'red' },
-  { id: 'Cisco 4', color: 'orange' },
-  { id: 'Cisco 5', color: 'pink' },
+  { id: 'Cisco 1', color: 'green', start: toTime('15:45'), end: toTime('17:02') },
+  { id: 'Cisco 2', color: 'blue', start: toTime('14:50'), end: toTime('15:50') },
+  { id: 'Cisco 3', color: 'red', start: toTime('16:00'), end: toTime('17:26') },
+  { id: 'Cisco 4', color: 'orange', start: toTime('16:05'), end: toTime('17:35') },
+  { id: 'Cisco 5', color: 'pink', start: toTime('15:40'), end: toTime('17:03') },
 ];
 
 const teamMarkers = [];
@@ -206,6 +211,30 @@ async function fetchTeams() {
   return data;
 }
 
+async function replayRace(file) {
+  const data = await (await fetch(file)).json();
+  const timeEl = document.querySelector('.time');
+
+  for (const point of data) {
+    await sleep(playbackSpeed);
+    const { id, pos, timestamp } = point;
+    const teamId = trackerIds[id];
+    const team = teams.find(t => t.id === teamId);
+    const time = new Date(timestamp * 1000).toLocaleTimeString();
+    timeEl.innerText = time;
+
+    if (timestamp < team.start || timestamp > team.end) continue;
+
+    const marker = teamMarkers.find(t => t.id === teamId)?.marker;
+    marker.setPosition(pos);
+    const stage = findStage(pos);
+    const runner = getRunner(teamId, stage);
+    const teamMarker = getMarkerUrl(runner);
+    const icon = teamMarker;
+    marker.setIcon(icon);
+  }
+}
+
 async function initMap() {
 
   const { Map, InfoWindow } = await google.maps.importLibrary("maps");
@@ -216,26 +245,29 @@ async function initMap() {
     center: mapCenter,
     // mapTypeId: 'terrain',
   });
+  map.setOptions({
+    styles: config.mapStyles,
+  });
 
   map.addListener('click', onMapClick);
   await addStages(map);
   teamInfo = await fetchTeams();
   console.log('teamdata', teamData);
   createTeamMarkers(map, teams);
-  setTimeout(pollTrackingData, 3_000);
-  setInterval(pollTrackingData, pollIntervalSec * 1000);
+
+  // setTimeout(pollTrackingData, 3_000);
+  // setInterval(pollTrackingData, pollIntervalSec * 1000);
   // showGpsFile(map, './testtrack.json');
-  map.setOptions({
-    styles: config.mapStyles,
-  });
+
   avatars = await fetchAvatars();
   // showGpsFile(map, './second-bikeride.json');
+  document.querySelector('.demo').onclick = () => replayRace('./trackerdata/cisco-hk-2023.json');
 }
 
-if (location.href.startsWith('https://')) {
-  location.href = location.href.replace('https://', 'http://');
-  // necessary because page talks with a http server
-}
+// if (location.href.startsWith('https://')) {
+//   location.href = location.href.replace('https://', 'http://');
+//   // necessary because page talks with a http server
+// }
 
 initMap();
 
