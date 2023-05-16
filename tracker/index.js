@@ -4,14 +4,14 @@ let stages;
 let avatars = {};
 let teamInfo = [];
 let infoWindow;
-let playbackSpeed = 3; // increase to slow down playback
+let playbackSpeed = 20; // increase to slow down playback
 
-const hvalstad = { lat: 59.86421811683712, lng: 10.46892377064593 };
+const bislett = { lat: 59.925011718769156, lng: 10.733248455423045 };
 const hk = { lat: 59.93650304183593, lng: 10.70434527968958 };
 const mapCenter = hk;
 
 const pollIntervalSec = 5;
-const mapZoom = 13; // 13
+const mapZoom = 13.3; // 13
 const tooOldData = 120;
 
 function toTime(text) {
@@ -158,6 +158,7 @@ function createTeamMarkers(map, teams) {
     const marker = new Marker({
       map,
       position: stages[0][0],
+      zIndex: 100,
       icon: {
         url: getMarkerUrl(),
         scaledSize: {
@@ -212,8 +213,10 @@ async function fetchTeams() {
 }
 
 async function replayRace(file) {
+
   const data = await (await fetch(file)).json();
   const timeEl = document.querySelector('.time');
+  const end = toTime('17:40');
 
   for (const point of data) {
     await sleep(playbackSpeed);
@@ -223,6 +226,7 @@ async function replayRace(file) {
     const time = new Date(timestamp * 1000).toLocaleTimeString();
     timeEl.innerText = time;
 
+    if (timestamp > end) break;
     if (timestamp < team.start || timestamp > team.end) continue;
 
     const marker = teamMarkers.find(t => t.id === teamId)?.marker;
@@ -233,6 +237,30 @@ async function replayRace(file) {
     const icon = teamMarker;
     marker.setIcon(icon);
   }
+
+  map.panTo(bislett);
+  map.setZoom(18);
+}
+
+async function plotUserPos() {
+  if (!navigator.geolocation) {
+    console.log('location not available');
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(position => {
+    console.log('got pos', position);
+    const lat = position.coords.latitude;
+    const lng = position.coords.longitude;
+    const pos = { lat, lng };
+    const marker = new Marker({
+      map,
+      position: pos,
+      icon: 'http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png',
+    });
+  }, e => {
+    console.log('not able to get pos');
+  });
 }
 
 async function initMap() {
@@ -262,6 +290,7 @@ async function initMap() {
   avatars = await fetchAvatars();
   // showGpsFile(map, './second-bikeride.json');
   document.querySelector('.demo').onclick = () => replayRace('./trackerdata/cisco-hk-2023.json');
+  await plotUserPos();
 }
 
 // if (location.href.startsWith('https://')) {
