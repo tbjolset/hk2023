@@ -213,7 +213,12 @@ async function fetchTeams() {
 }
 
 async function replayRace(file) {
-
+  try {
+    await plotUserPos();
+  }
+  catch(e) {
+    console.log(e);
+  }
   const data = await (await fetch(file)).json();
   const timeEl = document.querySelector('.time');
   const end = toTime('17:40');
@@ -291,7 +296,7 @@ async function initMap() {
   avatars = await fetchAvatars();
   // showGpsFile(map, './second-bikeride.json');
   document.querySelector('.demo').onclick = () => replayRace('./trackerdata/cisco-hk-2023.json');
-  await plotUserPos();
+  // await plotUserPos();
 }
 
 // if (location.href.startsWith('https://')) {
