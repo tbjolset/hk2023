@@ -245,6 +245,7 @@ async function replayRace(file) {
 async function plotUserPos() {
   if (!navigator.geolocation) {
     console.log('location not available');
+    alert('Location service not available');
     return;
   }
 
@@ -259,7 +260,7 @@ async function plotUserPos() {
       icon: 'http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png',
     });
   }, e => {
-    console.log('not able to get pos');
+    alert('Not allowed access to location: ' + e.message);
   });
 }
 
