@@ -10,7 +10,7 @@ const bislett = { lat: 59.925011718769156, lng: 10.733248455423045 };
 const hk = { lat: 59.93650304183593, lng: 10.70434527968958 };
 const mapCenter = hk;
 
-const pollIntervalSec = 5;
+const pollIntervalSec = 2;
 const mapZoom = 13.3; // 13
 const tooOldData = 120;
 
@@ -289,8 +289,8 @@ async function initMap() {
   console.log('teamdata', teamData);
   createTeamMarkers(map, teams);
 
-  // setTimeout(pollTrackingData, 3_000);
-  // setInterval(pollTrackingData, pollIntervalSec * 1000);
+  setTimeout(pollTrackingData, 3_000);
+  setInterval(pollTrackingData, pollIntervalSec * 1000);
   // showGpsFile(map, './testtrack.json');
 
   avatars = await fetchAvatars();
