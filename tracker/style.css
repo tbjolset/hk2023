@@ -58,6 +58,7 @@ button.demo {
   cursor: pointer;
   width: 10em;
   left: calc(50% - 5em);
+  display: none;
 }
 
 img[src*="avatar"]{
