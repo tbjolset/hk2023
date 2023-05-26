@@ -107,6 +107,8 @@ function getRunner(teamId, stage) {
 }
 
 function getMarkerUrl(name) {
+  // override for friday coke demo:
+  name = 'Thomas Berntsen';
   const avatar = avatars?.[name];
   if (avatar) {
     const url = avatar.replace('~640', '~80');
